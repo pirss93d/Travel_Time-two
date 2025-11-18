@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <!-- ADMINKA -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/style.css" />
+    <script src="/public/app.js" defer></script>
+    <title>Admin</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main_block-one">
+          <div><span id="username">гость</span></div>
+        <div class="main_logo">Admin</div>
+        <button class="main_order">Заказать</button>
+        <div class="btn_order">
+          <form
+            action="/submit-form"
+            method="POST"
+            id="form_one"
+            class="btn_order-form"
+          >
+            <div class="form_input">
+              <label for="adres">
+                <input
+                  type="text"
+                  name="address"
+                  id="adres"
+                  placeholder="Адрес"
+                />
+              </label>
+            </div>
+            <div class="form_input">
+              <label for="date">
+                <input type="date" name="data" id="date" />
+              </label>
+              <label for="time">
+                <input type="time" name="time" id="time" />
+              </label>
+            </div>
+            <div class="form_input">
+              <label for="number">
+                <input
+                  name="passenger"
+                  type="number"
+                  id="number"
+                  placeholder="Кол-во пассажиров"
+                />
+              </label>
+            </div>
+            <div class="form_input">
+              <label for="coment">
+                <input
+                  name="message"
+                  type="text"
+                  id="coment"
+                  placeholder="Коментарий  для водителя"
+                />
+              </label>
+            </div>
+            <!-- <div class="input_file">
+              <input type="file" id="my_file" hidden />
+              <label for="my_file">Подкрепить файл</label>
+            </div> -->
+            <button id="form_btn-push">Заказать</button>
+          </form>
+        </div>
+        <button class="main_help">Помощь/Поддержка</button>
+        <div class="main_block-helper">
+          <form action="#">
+            <label for="helper"></label>
+            <textarea
+              maxlength="100"
+              id="helper"
+              placeholder="Ваше обращение"
+            ></textarea>
+            <button id="push_help">Отправить</button>
+          </form>
+        </div>
+        <div class="main_block-admin">
+          <button class="block-admin_reg" id="REG_Admin">Пользователи</button>
+          
+        </div>
+    
+      </div>
+    </div>
+  </body>
+</html>

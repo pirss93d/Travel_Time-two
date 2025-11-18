@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="app.js" defer></script>
+    <title>Заказ Транспорт</title>
+  </head>
+  <body>
+    <div class="block_two">
+      <div class="block_two-header">
+        <div class="wrapper_back">
+          <a href="../index.html">
+            <img
+              src="../img/mobil/block_two/back.svg"
+              alt="Назад"
+              class="back-img"
+          /></a>
+        </div>
+        <div class="profile">Admin</div>
+      </div>
+      <form action="" class="block_form">
+        <label for="text"></label>
+        <input type="text" id="text" placeholder="Адрес" />
+        <div class="data_time">
+          <label for="data"></label>
+          <input type="date" id="data" />
+          <label for="time"></label>
+          <input type="time" id="time" />
+        </div>
+        <label for="passage"></label>
+        <input
+          type="number"
+          id="passage"
+          placeholder="Кол-во пассажиров"
+          required
+        />
+        <label for="driver"></label>
+        <input
+          type="text"
+          id="driver"
+          placeholder="Коментарий  для водителя"
+          required
+        />
+        <label for="file"></label>
+        <input type="file" id="file" />
+
+        <button id="order">заказать</button>
+      </form>
+    </div>
+  </body>
+</html>
