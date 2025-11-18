@@ -592,7 +592,7 @@ input {
 .login_enter {
   font-family: "Russo One";
   color: #fff;
-  font-size: 100px;
+  font-size: 70px;
 }
 
 .btn_login {
@@ -643,3 +643,26 @@ input {
 
 
 /* END messenger  */
+
+
+/* min-width (768ox)  and (max-width:1200px)*/
+
+@media (min-width: 700px) {
+  .form_login-pin{
+      align-items: normal;
+  justify-content: normal;
+    max-width: 768px;
+    height: 1200px;
+  }
+
+
+  .login_enter{
+    color: red;
+  }
+
+  .login-pin{
+    background-color: tan;
+  }
+
+
+}
