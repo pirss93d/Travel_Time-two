@@ -580,7 +580,6 @@ input {
   border: 1px solid rgb(100, 97, 97);
   max-width: 420px;
   height: 100vh;
-  font-family: "Russo One";
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -648,21 +647,51 @@ input {
 /* min-width (768ox)  and (max-width:1200px)*/
 
 @media (min-width: 700px) {
+  .login{
+    
+  }
+  .login_enter{
+    cursor: pointer;
+  }
   .form_login-pin{
-      align-items: normal;
-  justify-content: normal;
-    max-width: 768px;
-    height: 1200px;
+      
+  justify-content: center;
+    max-width: 1024px;
+    max-height: 1200px;
   }
 
 
   .login_enter{
-    color: red;
+    color: rgb(243, 241, 241);
   }
 
   .login-pin{
-    background-color: tan;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    /* background-color: rgb(211, 141, 49); */
   }
 
+  .login_name , .login_password{
+   width: 100%;
+   font-size: 30px;
+   
+  }
+  
+.form_login-pin input{
+  height: 100px;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+
+  .btn_login {
+  width: 350px;
+  height: 80px;
+     font-size: 40px;
+     border-radius: 20px;
+  }
 
 }

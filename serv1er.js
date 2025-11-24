@@ -21,7 +21,17 @@ app.use(
     saveUninitialized: false, // Не сохранять пустые сессии
   })
 );
-
+// ***
+app.get('/users', (req, res) => {
+  // Запрос всех пользователей из таблицы users (замените на вашу таблицу)
+  db.all("SELECT * FROM users", [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows); // Отправляем массив пользователей в JSON
+  });
+});
+// ***
 app.use(passport.initialize());
 app.use(passport.session());
 //Реализация регистрации пользователей в базу данных SQllite users.db
@@ -109,8 +119,25 @@ passport.deserializeUser((id, done) => {
 });
 
 // Маршрут регистрации
+app.post("/register", (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) return res.status(400).send("Заполните оба поля.");
+  const hashed = bcrypt.hashSync(password, 10);
+  db.run(
+    "INSERT INTO users (username, password) VALUES (?, ?)",
+    [username, hashed],
+    function (err) {
+      if (err) {
+        return res.status(400).send("Пользователь уже существует");
+      }
+      res.send("Регистрация успешна");
+    }
+  );
+});
+
+// ------------
 // app.get("/register", (req, res) => {
-//   res.sendFile(__dirname + "/public/register.html");
+//   res.sendFile(__dirname + "/admin/mainAdmin.html");
 // });
 
 // app.post("/register", (req, res) => {
@@ -126,6 +153,7 @@ passport.deserializeUser((id, done) => {
 //     }
 //   );
 // });
+
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

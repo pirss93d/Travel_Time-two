@@ -6,7 +6,14 @@ const btn_push = document.querySelector("#form_btn-push");
 //
 const block_help = document.querySelector(".main_block-helper");
 const btn_helper = document.querySelector(".main_help");
-
+document.querySelector('form').onsubmit = function(e) {
+  e.preventDefault();
+  const formData = {
+    username: this.username.value,
+    password: this.password.value
+  };
+  registerUser(formData);
+};
 //admin panel user
 
 
@@ -98,7 +105,27 @@ fetch('/api/current_user')
   
 
 // 
+// Статус регистрации 
 
+// 
 
+// выврод пользователей 
+
+// 
+  const form = document.getElementById('registerForm');
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault(); // отменяем обычную отправку формы
+    const formData = new FormData(form);
+    const response = await fetch('/register', {
+      method: 'POST',
+      body: formData
+    });
+    const text = await response.text();
+    alert(text);
+    if (response.ok) {
+      // можно очистить форму или перенаправить вручную, если надо:
+      // window.location.href = '/login';
+    }
+  });
 // Сообщене что скрипт работает.
 console.log("app JS Start!");

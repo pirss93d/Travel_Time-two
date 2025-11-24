@@ -10,5 +10,6 @@ db.run(`
 `);
 
 module.exports = db;
+
 console.log("SQL стартанул !");
 // BASE DATA
