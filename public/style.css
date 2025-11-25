@@ -547,7 +547,7 @@ input {
   display: flex;
   flex-direction: column;
   width: 200px;
-  height: 200px;
+  
 }
 
 .block-admin_reg {
@@ -565,6 +565,23 @@ input {
   width: 200px;
   height: 200px;
   background-color: rebeccapurple;
+}
+
+.main_block-registr{
+  cursor:pointer;
+  margin-top: 26px;
+  text-align: center;
+  width: 200px;
+  background-color: #fff;
+}
+.main_block-registr:hover{
+  opacity: 0.5;
+}
+.block_registr{
+  display: none;
+  width: 250px;
+  height: 100px;
+  background-color: tan;
 }
 
 /* ADMINKA panel END  */
@@ -655,7 +672,7 @@ input {
   }
   .form_login-pin{
       
-  justify-content: center;
+   justify-content: center;
     max-width: 1024px;
     max-height: 1200px;
   }
