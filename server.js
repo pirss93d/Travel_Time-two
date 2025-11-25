@@ -120,17 +120,17 @@ passport.deserializeUser((id, done) => {
 
 // Маршрут регистрации
 app.post("/register", (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) return res.status(400).send("Заполните оба поля.");
+  const { name, password } = req.body;
+  if (!name || !password) return res.status(400).send("Заполните оба поля.");
   const hashed = bcrypt.hashSync(password, 10);
   db.run(
     "INSERT INTO users (username, password) VALUES (?, ?)",
-    [username, hashed],
+    [name, hashed],
     function (err) {
       if (err) {
         return res.status(400).send("Пользователь уже существует");
       }
-      res.send("Регистрация успешна");
+      res.send("Регистрация прошла успешно");
     }
   );
 });

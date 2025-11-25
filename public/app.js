@@ -119,6 +119,20 @@ fetch('/api/current_user')
 
 // 
 // Статус регистрации 
+  document.getElementById("registerForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    fetch('/register', {
+      method: 'POST',
+      body: new URLSearchParams(formData)
+    })
+    .then(response => response.text())
+    .then(text => alert(text))
+    .catch(err => alert('Ошибка при регистрации'));
+  });
+
+
+
 
 // 
 
