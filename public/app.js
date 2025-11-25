@@ -1,8 +1,11 @@
 //Функция для кнопки заказать по булевому значению.
 let isOpen = false;
+let isOpen_admin_registr = false;
 const btn = document.querySelector(".main_order");
 const btn_on = document.querySelector(".btn_order");
 const btn_push = document.querySelector("#form_btn-push");
+const btn_admin_registr = document.querySelector(".main_block-registr")
+const form_admin_registr = document.querySelector(".block_registr")
 //
 const block_help = document.querySelector(".main_block-helper");
 const btn_helper = document.querySelector(".main_help");
@@ -15,7 +18,17 @@ document.querySelector('form').onsubmit = function(e) {
   registerUser(formData);
 };
 //admin panel user
-
+btn_admin_registr.addEventListener("click", function () {
+  if (!isOpen_admin_registr) {
+    form_admin_registr.style.display = "flex";
+    btn_admin_registr.textContent = "Свернуть";
+    isOpen_admin_registr = true;
+  } else {
+    form_admin_registr.style.display = "none";
+    btn_admin_registr.textContent = "Зарегестрировать";
+    isOpen_admin_registr = false;
+  }
+});
 
 ////admin panel user END.
 let isOpen_help = false;
@@ -112,20 +125,20 @@ fetch('/api/current_user')
 // выврод пользователей 
 
 // 
-  const form = document.getElementById('registerForm');
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault(); // отменяем обычную отправку формы
-    const formData = new FormData(form);
-    const response = await fetch('/register', {
-      method: 'POST',
-      body: formData
-    });
-    const text = await response.text();
-    alert(text);
-    if (response.ok) {
+  // const form = document.getElementById('registerForm');
+  // form.addEventListener('submit', async function (e) {
+  //   e.preventDefault(); // отменяем обычную отправку формы
+  //   const formData = new FormData(form);
+  //   const response = await fetch('/register', {
+  //     method: 'POST',
+  //     body: formData
+  //   });
+  //   const text = await response.text();
+  //   alert(text);
+  //   if (response.ok) {
       // можно очистить форму или перенаправить вручную, если надо:
       // window.location.href = '/login';
-    }
-  });
+  //   }
+  // });
 // Сообщене что скрипт работает.
 console.log("app JS Start!");

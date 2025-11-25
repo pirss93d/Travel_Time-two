@@ -414,6 +414,7 @@ body {
   cursor: pointer;
   background-color: #373535;
   border: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .main_help {
@@ -427,11 +428,13 @@ body {
   border: none;
   color: #fff;
   cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .main_order:hover,
 .main_help:hover {
-  opacity: 0.5;
+  transform: scale(1.1);
+  opacity: 0.8;
 }
 
 .btn_order {
@@ -528,7 +531,7 @@ body {
   box-sizing: border-box;
   resize: none;
   border-radius: 10px;
-  /* background-color: rgba(255, 255, 255, 0); */
+  
 }
 textarea::placeholder {
   text-align: center;
@@ -547,7 +550,7 @@ input {
   display: flex;
   flex-direction: column;
   width: 200px;
-  height: 200px;
+  
 }
 
 .block-admin_reg {
@@ -556,15 +559,40 @@ input {
   border: none;
   color: #fff;
   background-color: #373535;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .block-admin_reg:hover {
-  opacity: 0.5;
+    transform: scale(1.1);
+  opacity: 0.8;
+  
 }
 .admin_reg-user {
   display: none;
   width: 200px;
   height: 200px;
   background-color: rebeccapurple;
+}
+
+.main_block-registr{
+  cursor:pointer;
+  margin-top: 26px;
+  text-align: center;
+  width: 200px;
+  color: #fff;
+  background-color: #373535;
+  border: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+}
+.main_block-registr:hover{
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+.block_registr{
+  display: none;
+  width: 250px;
+  height: 100px;
+  background-color: tan;
 }
 
 /* ADMINKA panel END  */
@@ -655,7 +683,7 @@ input {
   }
   .form_login-pin{
       
-  justify-content: center;
+   justify-content: center;
     max-width: 1024px;
     max-height: 1200px;
   }
