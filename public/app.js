@@ -1,12 +1,11 @@
 //Функция для кнопки заказать по булевому значению.
 let isOpen = false;
-let isOpen_admin_registr = false;
+
 const btn = document.querySelector(".main_order");
 const btn_on = document.querySelector(".btn_order");
 const btn_push = document.querySelector("#form_btn-push");
-const btn_admin_registr = document.querySelector(".main_block-registr")
-const form_admin_registr = document.querySelector(".block_registr")
-//
+
+
 const block_help = document.querySelector(".main_block-helper");
 const btn_helper = document.querySelector(".main_help");
 document.querySelector('form').onsubmit = function(e) {
@@ -17,18 +16,7 @@ document.querySelector('form').onsubmit = function(e) {
   };
   registerUser(formData);
 };
-//admin panel user
-btn_admin_registr.addEventListener("click", function () {
-  if (!isOpen_admin_registr) {
-    form_admin_registr.style.display = "flex";
-    btn_admin_registr.textContent = "Свернуть";
-    isOpen_admin_registr = true;
-  } else {
-    form_admin_registr.style.display = "none";
-    btn_admin_registr.textContent = "Зарегестрировать";
-    isOpen_admin_registr = false;
-  }
-});
+
 
 ////admin panel user END.
 let isOpen_help = false;
@@ -54,6 +42,20 @@ btn_helper.addEventListener("click", function () {
     isOpen_help = false;
   }
 });
+
+// Открывает в админке регистрацию ***
+// let isOpen_admin_registr = false;
+// btn_admin_registr.addEventListener("click", function(){
+//   if(!isOpen_admin_registr){
+//    form_admin_registr.style.display = "flex";
+//     isOpen_admin_registr = true;
+//   }else{
+//     form_admin_registr.style.display = "none";
+//     isOpen_admin_registr = false
+//   }
+// })
+
+// 
 document
   .getElementById("form_one")
   .addEventListener("submit", async function (e) {
@@ -119,17 +121,17 @@ fetch('/api/current_user')
 
 // 
 // Статус регистрации 
-  document.getElementById("registerForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const formData = new FormData(this);
-    fetch('/register', {
-      method: 'POST',
-      body: new URLSearchParams(formData)
-    })
-    .then(response => response.text())
-    .then(text => alert(text))
-    .catch(err => alert('Ошибка при регистрации'));
-  });
+  // document.getElementById("registerForm").addEventListener("submit", function(event) {
+  //   event.preventDefault();
+  //   const formData = new FormData(this);
+  //   fetch('/register', {
+  //     method: 'POST',
+  //     body: new URLSearchParams(formData)
+  //   })
+  //   .then(response => response.text())
+  //   .then(text => alert(text))
+  //   .catch(err => alert('Ошибка при регистрации'));
+  // });
 
 
 

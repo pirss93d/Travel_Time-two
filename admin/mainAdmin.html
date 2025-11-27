@@ -5,17 +5,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css" />
-    <script src="/app.js" defer></script>
+    <!-- <script src="/app.js" defer></script> -->
+    <script src="/adminApp.js" defer></script>
     
     <title>Admin</title>
   </head>
   <body>
     <div class="main">
       <div class="main_block-one">
-          <!-- <div><span id="username">Administrator</span></div> -->
+          <div><span id="username">Administrator</span></div>
         <div class="main_logo">Admin</div>
         <button class="main_order">Заказать</button>
         <div class="btn_order">
+           <div><span id="username">гость</span></div>
           <form
             action="/submit-form"
             method="POST"
@@ -88,7 +90,7 @@
           <form action="/register" id="registerForm" method="POST">
     <input type="text" id="name" name="name"  placeholder="Логин"/>
     <input type="password" id="password" name="password" placeholder="Пароль"/>
-    <button type="submit">Зарегистрироваться</button>
+    <button type="submit">Зарегистрировать</button>
   </form>
 
 
