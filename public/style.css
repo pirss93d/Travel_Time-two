@@ -595,6 +595,20 @@ input {
   background-color: tan;
 }
 
+.main_block-admin{
+  color: #fff;
+}
+.main_block-admin table,td,th{
+ border: 0.5px solid #706f69;
+}
+.main_block-admin th {
+  font-family: "Roboto";
+  font-size: 20px
+}
+.admin_btn{
+  cursor: pointer;
+}
+
 /* ADMINKA panel END  */
 
 /* LOGIN  */

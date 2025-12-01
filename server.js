@@ -21,6 +21,9 @@ app.use(
     saveUninitialized: false, // Не сохранять пустые сессии
   })
 );
+
+
+
 // ***
 app.get('/users', (req, res) => {
   // Запрос всех пользователей из таблицы users (замените на вашу таблицу)
@@ -56,6 +59,7 @@ app.get("/", ensureAuthenticated, (req, res) => {
 });
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
+   
 });
 // app.get("/admin", ensureAuthenticated, (req, res) => {
 //   res.sendFile(__dirname + "/admin/mainAdmin.html"); // main.html ДОЛЖЕН лежать вне public
@@ -136,23 +140,6 @@ app.post("/register", (req, res) => {
 });
 
 // ------------
-// app.get("/register", (req, res) => {
-//   res.sendFile(__dirname + "/admin/mainAdmin.html");
-// });
-
-// app.post("/register", (req, res) => {
-//   const { username, password } = req.body;
-//   if (!username || !password) return res.send("Заполните оба поля.");
-//   const hashed = bcrypt.hashSync(password, 10);
-//   db.run(
-//     "INSERT INTO users (username, password) VALUES (?, ?)",
-//     [username, hashed],
-//     function (err) {
-//       if (err) return res.send("Пользователь уже существует");
-//       res.redirect("/login");
-//     }
-//   );
-// });
 
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -191,6 +178,28 @@ app.get('/api/current_user', (req, res) => {
   } else {
     res.json({ username: null });
   }
+});
+
+
+
+// ЛОгика удаление пользователя 
+app.delete('/users/:id', ensureAuthenticated, (req, res) => {
+  const userId = req.params.id;
+
+  // Проверяем, что пользователь имеет права (например, admin), можно добавить вашу логику проверки
+  if (req.user.username !== 'admin') {
+    return res.status(403).json({ error: 'Доступ запрещен' });
+  }
+
+  db.run('DELETE FROM users WHERE id = ?', [userId], function (err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'Пользователь не найден' });
+    }
+    res.json({ message: 'Пользователь успешно удален' });
+  });
 });
 // 
 // 
