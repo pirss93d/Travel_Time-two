@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/style.css" />
     <script src="/app.js" defer></script>
     <script src="/adminApp.js" defer></script>
+    <script src="/usersTab.js" defer></script>
   
     <title>Admin</title>
   </head>
@@ -82,8 +83,19 @@
           </form>
         </div>
         <div class="main_block-admin">
-          <button class="block-admin_reg" id="REG_Admin">Пользователи</button>
           
+          <button class="block-admin_reg" id="REG_Admin">Пользователи</button>
+          <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Логин</th>
+        <th class="admin_btn">Действия</th>
+        <!-- <th>Пароль (hash)</th> -->
+      </tr>
+    </thead>
+    <tbody id="users-body"></tbody>
+  </table>
         </div>
         <button class="main_block-registr">Зарегестрировать</button>
         <div class="block_registr">
