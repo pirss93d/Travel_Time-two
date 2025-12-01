@@ -385,7 +385,7 @@ body {
   flex-direction: column;
   align-items: center;
   max-width: 420px;
-  height: 1100px;
+ height: 1200px;
   background-color: #373535;
   border: 1px solid #aaa2a2;
 }
@@ -598,16 +598,18 @@ input {
 .main_block-admin{
   color: #fff;
 }
+ .user_list{
+  display: none;
+ }
 .main_block-admin table,td,th{
  border: 0.5px solid #706f69;
 }
 .main_block-admin th {
+
   font-family: "Roboto";
   font-size: 20px
 }
-.admin_btn{
-  cursor: pointer;
-}
+
 
 /* ADMINKA panel END  */
 
