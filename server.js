@@ -183,25 +183,66 @@ app.get('/api/current_user', (req, res) => {
 
 
 
-// ЛОгика удаление пользователя 
+ 
+// Логика удаления пользователя 
 app.delete('/users/:id', ensureAuthenticated, (req, res) => {
   const userId = req.params.id;
 
-  // Проверяем, что пользователь имеет права (например, admin), можно добавить вашу логику проверки
+  // Проверяем, что пользователь имеет права (например, admin)
   if (req.user.username !== 'admin') {
     return res.status(403).json({ error: 'Доступ запрещен' });
   }
 
-  db.run('DELETE FROM users WHERE id = ?', [userId], function (err) {
+  // Получаем пользователя перед удалением для проверки
+  db.get('SELECT username FROM users WHERE id = ?', [userId], (err, user) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    if (this.changes === 0) {
+    
+    if (!user) {
       return res.status(404).json({ error: 'Пользователь не найден' });
     }
-    res.json({ message: 'Пользователь успешно удален' });
+
+    // Защищаем учетную запись admin от удаления
+    if (user.username === 'admin') {
+      return res.status(403).json({ error: 'Удаление учётной записи admin запрещено' });
+    }
+
+    // Выполняем удаление только если это НЕ admin
+    db.run('DELETE FROM users WHERE id = ?', [userId], function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      
+      if (this.changes === 0) {
+        return res.status(404).json({ error: 'Пользователь не найден' });
+      }
+      
+      res.json({ message: 'Пользователь успешно удален' });
+    });
   });
 });
+
+
+
+// app.delete('/users/:id', ensureAuthenticated, (req, res) => {
+//   const userId = req.params.id;
+
+//   // Проверяем, что пользователь имеет права (например, admin)
+//   if (req.user.username !== 'admin') {
+//     return res.status(403).json({ error: 'Доступ запрещен' });
+//   }
+
+//   db.run('DELETE FROM users WHERE id = ?', [userId], function (err) {
+//     if (err) {
+//       return res.status(500).json({ error: err.message });
+//     }
+//     if (this.changes === 0) {
+//       return res.status(404).json({ error: 'Пользователь не найден' });
+//     }
+//     res.json({ message: 'Пользователь успешно удален' });
+//   });
+// });
 // 
 // 
 // 

@@ -385,7 +385,8 @@ body {
   flex-direction: column;
   align-items: center;
   max-width: 420px;
- height: 1200px;
+  min-height: 800px;
+  max-height: 1800px; /******/
   background-color: #373535;
   border: 1px solid #aaa2a2;
 }
@@ -590,11 +591,40 @@ input {
 }
 .block_registr{
   display: none;
-  width: 250px;
-  height: 100px;
-  background-color: tan;
+  flex-direction: column;
+  align-items: center;
+  width: 339px;
+  height: 250px;
+ 
+ 
+}
+.block_registr form{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.block_registr input{
+  width: 329px;
+  height: 32px;
+  border: 1px solid #e9c00b;
 }
 
+.block_registr input:nth-child(2){
+  margin-top: 10px;
+
+}
+.btn_admin_register {
+  width: 212px;
+  height: 58px;
+  font-size: 3;
+  font-family: "Russo One";
+  font-weight: 400;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 10px;
+}
 .main_block-admin{
   color: #fff;
 }
