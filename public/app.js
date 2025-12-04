@@ -79,6 +79,7 @@ document
       } else {
         alert(result.message || "Ошибка отправки заявки");
       }
+      
     } catch (error) {
       alert("Ошибка сети");
     }
