@@ -1,3 +1,4 @@
+
 const express = require("express"); // подключение   веб-фреймворк Express.
 const app = express(); // app — это приложение Express, которое обрабатывает GET-запросы к корню / и отвечает текстом.
 const bot = require("./bot"); // импортируем  бота
@@ -7,13 +8,37 @@ const session = require("express-session"); //
 const LocalStrategy = require("passport-local").Strategy;
 let subscribersFile = "./subscribers.json"; //
 let subscribers = new Set();
-
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const sqlite3 = require("sqlite3").verbose(); //SQllite
 const db = require("./db"); //SQllite
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public"));  //директива в Express.js, которая подключает встроенный middleware для обслуживания статических файлов из папки
+app.post("/register", (req, res) => {
+  console.log("=== REGISTER HIT ===");
+  console.log("req.body:", req.body);
+
+  const name = req.body?.name;
+  const password = req.body?.password;
+
+  if (!name || !password) {
+    return res.status(400).send("Заполните оба поля.");
+  }
+
+  const hashed = bcrypt.hashSync(password, 10);
+  db.run(
+    "INSERT INTO users (username, password) VALUES (?, ?)",
+    [name, hashed],
+    function (err) {
+      if (err) {
+        return res.status(400).send("Пользователь уже существует");
+      }
+      res.send("Регистрация прошла успешно");
+    }
+  );
+});
+
+
 app.use(
   session({
     secret: "ваш_секрет", // Любая строка, используемая для подписи cookie
@@ -22,6 +47,7 @@ app.use(
   })
 );
 // Emaill - Emaill 
+// Маршрут регистрации
 
 
 
@@ -123,22 +149,7 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-// Маршрут регистрации
-app.post("/register", (req, res) => {
-  const { name, password } = req.body;
-  if (!name || !password) return res.status(400).send("Заполните оба поля.");
-  const hashed = bcrypt.hashSync(password, 10);
-  db.run(
-    "INSERT INTO users (username, password) VALUES (?, ?)",
-    [name, hashed],
-    function (err) {
-      if (err) {
-        return res.status(400).send("Пользователь уже существует");
-      }
-      res.send("Регистрация прошла успешно");
-    }
-  );
-});
+
 
 // ------------
 
@@ -158,15 +169,16 @@ function broadcastMessage(text) {
   });
 }
 
-app.use(express.static("public")); //директива в Express.js, которая подключает встроенный middleware для обслуживания статических файлов из папки
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.post("/new-application", (req, res) => {
-  const { address, data, time, passenger, message, email } = req.body;
-  const text = `Новая заявка! 🚀\nАдрес: ${address}\nДата: ${data} Время: ${time}⌚\nПасажиров: ${passenger}\nСообщение: ${message}💭\nEmail: ${email}`;
 
+
+// Принимает форму заявки  
+app.post("/submit-form", (req, res) => {
+  console.log("submit-form req.body:", req.body);
+  
+  const { address = '', data = '', time = '', passenger = '', message = '', email = '' } = req.body || {};
+  
+  const text = `Новая заявка! 🚀\nАдрес: ${address}\nДата: ${data} Время: ${time}⌚\nПасажиров: ${passenger}\nСообщение: ${message}`;
   broadcastMessage(text);
-
   res.json({ status: "OK", message: "Заявка принята ✅" });
 });
 
@@ -246,7 +258,6 @@ app.delete('/users/:id', ensureAuthenticated, (req, res) => {
 // 
 // 
 // 
-
 
 
 
