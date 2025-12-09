@@ -29,4 +29,10 @@ btm_user_list.addEventListener("click", function(){
      isOpen_user_list = false
   }
 })
+
+
+// Рендеринг регистрации 
+
+
+
 console.log("adminApp.js Start!")

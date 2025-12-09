@@ -43,47 +43,32 @@ btn_helper.addEventListener("click", function () {
   }
 });
 
-// Открывает в админке регистрацию ***
-// let isOpen_admin_registr = false;
-// btn_admin_registr.addEventListener("click", function(){
-//   if(!isOpen_admin_registr){
-//    form_admin_registr.style.display = "flex";
-//     isOpen_admin_registr = true;
-//   }else{
-//     form_admin_registr.style.display = "none";
-//     isOpen_admin_registr = false
-//   }
-// })
+
 
 // 
-document
-  .getElementById("form_one")
-  .addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-      const response = await fetch("/new-application", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        alert(result.message || "Заявка успешно отправлена!");
-        this.reset();
-      } else {
-        alert(result.message || "Ошибка отправки заявки");
-      }
-      
-    } catch (error) {
-      alert("Ошибка сети");
-    }
-  });
+document.getElementById('form_one').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = this;
+  
+  const formData = new URLSearchParams();
+  formData.append('address', document.getElementById('adres').value);
+  formData.append('data', document.getElementById('date').value);
+  formData.append('time', document.getElementById('time').value);
+  formData.append('passenger', document.getElementById('number').value);
+  formData.append('message', document.getElementById('coment').value);
+  
+  fetch('/submit-form', {  // ← /submit-form!
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formData.toString()
+  })
+  .then(r => r.json())
+  .then(data => {
+    alert(data.message);
+    form.reset();
+  })
+  .catch(() => alert('Ошибка'));
+});
 
 
 
@@ -117,45 +102,7 @@ fetch('/api/current_user')
         });
     }
 
-    // Функция для получения и отображения списка пользователей
-  
+   
 
-// 
-// Статус регистрации 
-  // document.getElementById("registerForm").addEventListener("submit", function(event) {
-  //   event.preventDefault();
-  //   const formData = new FormData(this);
-  //   fetch('/register', {
-  //     method: 'POST',
-  //     body: new URLSearchParams(formData)
-  //   })
-  //   .then(response => response.text())
-  //   .then(text => alert(text))
-  //   .catch(err => alert('Ошибка при регистрации'));
-  // });
-
-
-
-
-// 
-
-// выврод пользователей 
-
-// 
-  // const form = document.getElementById('registerForm');
-  // form.addEventListener('submit', async function (e) {
-  //   e.preventDefault(); // отменяем обычную отправку формы
-  //   const formData = new FormData(form);
-  //   const response = await fetch('/register', {
-  //     method: 'POST',
-  //     body: formData
-  //   });
-  //   const text = await response.text();
-  //   alert(text);
-  //   if (response.ok) {
-      // можно очистить форму или перенаправить вручную, если надо:
-      // window.location.href = '/login';
-  //   }
-  // });
 // Сообщене что скрипт работает.
 console.log("app JS Start!");
