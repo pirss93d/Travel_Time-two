@@ -3,16 +3,20 @@
 
 document.getElementById('registerForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  
-  // ✅ КЛЮЧЕВОЕ: new FormData(this)
-  const formData = new FormData(this);
-  
+
+  const formData = new URLSearchParams();
+  formData.append('name', document.getElementById('name').value);
+  formData.append('password', document.getElementById('password').value);
+
   fetch('/register', {
     method: 'POST',
-    body: formData  // НЕ JSON.stringify!
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    },
+    body: formData.toString()
   })
-  .then(response => response.text())
-  .then(text => alert(text))
-  .catch(err => console.error(err));
+    .then(response => response.text())
+    .then(text => alert(text))
+    .catch(err => console.error(err));
 });
 console.log("Start REfresh ")

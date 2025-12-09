@@ -14,28 +14,17 @@ const sqlite3 = require("sqlite3").verbose(); //SQllite
 const db = require("./db"); //SQllite
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));  //директива в Express.js, которая подключает встроенный middleware для обслуживания статических файлов из папки
-
-
-app.use(
-  session({
-    secret: "ваш_секрет", // Любая строка, используемая для подписи cookie
-    resave: false, // Экономия ресурсов, если ничего не меняется в сессии
-    saveUninitialized: false, // Не сохранять пустые сессии
-  })
-);
-// Emaill - Emaill 
-// Маршрут регистрации
 app.post("/register", (req, res) => {
-  console.log("=== REGISTER HIT ==="); // ← ДОБАВЬТЕ
-   // ✅ ЗАЩИТА ОТ PASSPORT - ПРОВЕРКА сессии
-  if (req.session && req.session.passport) {
-    delete req.session.passport; // Очищаем passport сессию
-  }
-  
+  console.log("=== REGISTER HIT ===");
   console.log("req.body:", req.body);
-  
-  const { name, password } = req.body || {};
-  if (!name || !password) return res.status(400).send("Заполните оба поля.");
+
+  const name = req.body?.name;
+  const password = req.body?.password;
+
+  if (!name || !password) {
+    return res.status(400).send("Заполните оба поля.");
+  }
+
   const hashed = bcrypt.hashSync(password, 10);
   db.run(
     "INSERT INTO users (username, password) VALUES (?, ?)",
@@ -48,6 +37,17 @@ app.post("/register", (req, res) => {
     }
   );
 });
+
+
+app.use(
+  session({
+    secret: "ваш_секрет", // Любая строка, используемая для подписи cookie
+    resave: false, // Экономия ресурсов, если ничего не меняется в сессии
+    saveUninitialized: false, // Не сохранять пустые сессии
+  })
+);
+// Emaill - Emaill 
+// Маршрут регистрации
 
 
 
